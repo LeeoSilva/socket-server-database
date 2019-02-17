@@ -13,9 +13,14 @@ add_library(interpreter
 	headers/interpreter.hpp
 )
 
+add_library(database
+	includes/database.cpp
+	headers/database.hpp
+)
 
 add_executable(database_system
 	../src/main.cpp
 )
 
 target_link_libraries(database_system PRIVATE interpreter)
+target_link_libraries(database_system PRIVATE database)
