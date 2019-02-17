@@ -9,7 +9,6 @@ int main(int argc, char* argv[]){
 	std::string command =  interpreter::initTerminal();
 	std::cout << command << std::endl;
 
-	interpreter::execute(command);
-
+	interpreter::getKeywords();
 	return 0;
 }
