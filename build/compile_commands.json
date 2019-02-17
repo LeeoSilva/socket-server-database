@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/leonardo/Codes/database_system/build",
+  "command": "/usr/bin/c++      -o CMakeFiles/interpreter.dir/includes/interpreter.cpp.o -c /home/leonardo/Codes/database_system/includes/interpreter.cpp",
+  "file": "/home/leonardo/Codes/database_system/includes/interpreter.cpp"
+},
+{
+  "directory": "/home/leonardo/Codes/database_system/build",
+  "command": "/usr/bin/c++      -o CMakeFiles/database_system.dir/src/main.cpp.o -c /home/leonardo/Codes/database_system/src/main.cpp",
+  "file": "/home/leonardo/Codes/database_system/src/main.cpp"
+}
+]

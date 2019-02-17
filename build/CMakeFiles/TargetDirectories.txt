@@ -1,0 +1,4 @@
+/home/leonardo/Codes/database_system/build/CMakeFiles/rebuild_cache.dir
+/home/leonardo/Codes/database_system/build/CMakeFiles/edit_cache.dir
+/home/leonardo/Codes/database_system/build/CMakeFiles/interpreter.dir
+/home/leonardo/Codes/database_system/build/CMakeFiles/database_system.dir

@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/leonardo/Codes/database_system/headers/interpreter.hpp
+string
+-
+../includes/interpreter.cpp
+/home/leonardo/Codes/database_system/includes/interpreter.cpp
+
+/home/leonardo/Codes/database_system/includes/interpreter.cpp
+string
+-
+iostream
+-
+
+/home/leonardo/Codes/database_system/src/main.cpp
+iostream
+-
+string
+-
+vector
+-
+../headers/interpreter.hpp
+/home/leonardo/Codes/database_system/headers/interpreter.hpp
+

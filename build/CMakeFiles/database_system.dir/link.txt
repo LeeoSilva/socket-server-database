@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/database_system.dir/src/main.cpp.o  -o database_system libinterpreter.a 
