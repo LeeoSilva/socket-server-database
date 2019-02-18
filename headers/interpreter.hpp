@@ -8,5 +8,5 @@ std::string getKeyword(unsigned id);
 std::string getKeywordDesc(unsigned id);
 unsigned interpreter::levenshtein_dist(std::string word1, unsigned length1, std::string word2, unsigned lenght2);int interpreter::checkArguments(int argc, char* argv[]);
 unsigned interpreter::getKeywordsSize(void);
-void interpreter::execute(std::string command);
+int interpreter::execute(std::string command);
 void interpreter::printHelp(void);

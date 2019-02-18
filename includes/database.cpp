@@ -4,7 +4,7 @@
 
 namespace database{
 	int exclude(void){
-		std::cout << "Delete Function" << std::endl;
+		std::cout << "Exclude Function" << std::endl;
 		return 1;
 	}
 	int edit(void){

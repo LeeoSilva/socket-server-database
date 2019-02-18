@@ -7,12 +7,13 @@ namespace interpreter{
 
 	std::vector<std::string> getKeywords(void){
 		return {
+			"EXIT",
 			"EDIT",
 			"EXCLUDE",
 			"INIT",
 			"SELECT",
 			"TRUNCATE",
-			"UPDATE",
+			"UPDATE"
 		};
 	}
 
@@ -23,6 +24,7 @@ namespace interpreter{
 
 	std::vector<std::string> getKeywordsDesc(void){
 		return {
+			"Terminate the program",
 			"Deletes a given row from the database",
 			"Edits a given row from the database",
 			"Inits the database structure",
@@ -69,24 +71,24 @@ namespace interpreter{
 		std::string correction;
 		unsigned record;
 		std::vector<std::string> keywords = interpreter::getKeywords();
-		for(unsigned i = 0; i < getKeywordsSize(); i++)
+		for(unsigned i = 0; i < getKeywordsSize(); i++){
 			if( interpreter::levenshtein_dist(command, command.length(), keywords[i], keywords[i].length()) < record ){
 				record = interpreter::levenshtein_dist(command, command.length(), keywords[i], keywords[i].length());
 				correction = keywords[i];
 			}
-		std::cout << "Did you mean '" << correction << "'?'" << std::endl;
+		}
+		std::cout << "Did you mean '" << correction << "' ?" << std::endl;
 	}
 
-	void execute(std::string command){
-		for( unsigned i = 0; i < interpreter::getKeywordsSize(); i++ ){
-			if( command == interpreter::getKeyword(0) )  database::edit();
-			if( command == interpreter::getKeyword(1) )  database::exclude();
-			if( command == interpreter::getKeyword(2) )  database::init();
-			if( command == interpreter::getKeyword(3) )  database::select();
-			if( command == interpreter::getKeyword(4) )  database::truncate();
-			if( command == interpreter::getKeyword(5) )  database::update();
-			else correction(command);
-		}
+	int execute(std::string command){
+		if     ( command == interpreter::getKeyword(1) )  return database::edit();
+		else if( command == interpreter::getKeyword(2) )  return database::exclude();
+		else if( command == interpreter::getKeyword(3) )  return database::init();
+		else if( command == interpreter::getKeyword(4) )  return database::select();
+		else if( command == interpreter::getKeyword(5) )  return database::truncate();
+		else if( command == interpreter::getKeyword(6) )  return database::update();
+		else if( command == interpreter::getKeyword(0) )  return -1;
+		else correction(command);
 	}
 
 	void printHelp(void){
