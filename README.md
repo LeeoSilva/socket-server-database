@@ -7,20 +7,20 @@ Fist an **interpreter** is called and is responsible for the input of the user
 	the parsing of the informations and making sure that the final **database**
 	understands and execute it flawlessly.
 
-### TODO List:
-	- [x] Write interpreter code.
-	- [x] Implement command correction.
-	- [x] Implement Levenshtein Distance algorithm.
-	- [ ] Optimize the Levenshtein Distance algorithm.
-	- [ ] Create a client-side socket.
-	- [ ] Create a server-side socket.
-	- [ ] Send data from client-side to server-side.
-	- [ ] Parse data received from the interpreter.
-	- [ ] Implement Edit database basic function.
-	- [ ] Implement Exclude database basic function.
-	- [ ] Implement Init database basic function.
-	- [ ] Implement Select database basic function.
-	- [ ] Implement Truncate database basic function.
-	- [ ] Implement Update database basic function.
-	- [ ] Create a log system.
-	- [ ] Setup a web page for visualization of the database.
+## TODOLIST:
+	- [x] Write interpreter code;
+	- [x] Implement command correction;
+	- [x] Implement Levenshtein Distance algorithm;
+	- [ ] Optimize the Levenshtein Distance algorithm;
+	- [ ] Create a client-side socket;
+	- [ ] Create a server-side socket;
+	- [ ] Send data from client-side to server-side;
+	- [ ] Parse data received from the interpreter;
+	- [ ] Implement Edit database basic function;
+	- [ ] Implement Exclude database basic function;
+	- [ ] Implement Init database basic function;
+	- [ ] Implement Select database basic function;
+	- [ ] Implement Truncate database basic function;
+	- [ ] Implement Update database basic function;
+	- [ ] Create a log system;
+	- [ ] Setup a web page for visualization of the database;
