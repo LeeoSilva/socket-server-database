@@ -24,7 +24,7 @@ namespace interpreter{
 
 	std::vector<std::string> getKeywordsDesc(void){
 		return {
-			"Terminate the program",
+			"Terminates the program",
 			"Deletes a given row from the database",
 			"Edits a given row from the database",
 			"Inits the database structure",
@@ -47,13 +47,14 @@ namespace interpreter{
 
 	std::string initTerminal(void){
 		std::string bufferInput;
-		std::cout << "[$] ";
+		std::cout << "[$]> ";
 		std::cin >> bufferInput;
 		return bufferInput;
 	}
 
 	// Finds the modification distance betwheen 2 words
 	unsigned levenshtein_dist(std::string word1, unsigned length1, std::string word2, unsigned length2){
+		// TODO: optimize it with separated functions executed by threads.
 		if (length1 == 0) return length2;
 		if (length2 == 0) return length1;
 		unsigned cost;
@@ -61,19 +62,23 @@ namespace interpreter{
 		if (word1[length1 - 1] == word2[length2 - 1]) cost = 0;
 		else cost = 1;
 
-		return std::min(std::min(levenshtein_dist(word1, length1 - 1, word2, length2) + 1,  // deletion
-				levenshtein_dist(word1, length1, word2, length2 - 1) + 1),		 		    // insertion
-				levenshtein_dist(word1, length1 - 1, word2, length1 - 1) + cost);  		    // substitution
+		unsigned deletion =  levenshtein_dist(word1, length1 - 1, word2, length2) + 1;
+		unsigned insertion =  levenshtein_dist(word1, length1, word2, length2 - 1) + 1;
+		unsigned substitution = levenshtein_dist(word1, length1 - 1, word2, length1 - 1) + cost;
+		return std::min(std::min(deletion, insertion), substitution);
 	}
 
 	// Uses the Levenshtein Distance to do a correction
 	void correction(std::string command){
+		// TODO: Split the command in spaces
 		std::string correction;
 		unsigned record;
 		std::vector<std::string> keywords = interpreter::getKeywords();
-		for(unsigned i = 0; i < getKeywordsSize(); i++){
-			if( interpreter::levenshtein_dist(command, command.length(), keywords[i], keywords[i].length()) < record ){
-				record = interpreter::levenshtein_dist(command, command.length(), keywords[i], keywords[i].length());
+
+		for(unsigned i = 0; i < interpreter::getKeywordsSize(); i++){
+			unsigned current = interpreter::levenshtein_dist(command, command.length(), keywords[i], keywords[i].length());
+			if( current < record ){
+				record = current;
 				correction = keywords[i];
 			}
 		}
