@@ -1,0 +1,5 @@
+/home/leonardo/Codes/socket-server-database/build/CMakeFiles/rebuild_cache.dir
+/home/leonardo/Codes/socket-server-database/build/CMakeFiles/edit_cache.dir
+/home/leonardo/Codes/socket-server-database/build/CMakeFiles/socket-server-database.dir
+/home/leonardo/Codes/socket-server-database/build/CMakeFiles/interpreter.dir
+/home/leonardo/Codes/socket-server-database/build/CMakeFiles/database.dir

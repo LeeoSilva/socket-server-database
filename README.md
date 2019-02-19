@@ -13,7 +13,7 @@ Fist an **interpreter** is called and is responsible for the input of the user
 - [x] Implement Levenshtein Distance algorithm;
 - [x] Add ./configure.sh file;
 - [ ] Optimize the Levenshtein Distance algorithm;
-- [ ] Create a client-side socket;
+- [x] Create a client-side socket;
 - [ ] Create a server-side socket;
 - [ ] Send data from client-side to server-side;
 - [ ] Parse data received from the interpreter;

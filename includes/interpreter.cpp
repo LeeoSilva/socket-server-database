@@ -7,7 +7,7 @@ namespace interpreter{
 
 	std::vector<std::string> getKeywords(void){
 		return {
-			"EXIT",
+			"QUIT",
 			"EDIT",
 			"EXCLUDE",
 			"INIT",
@@ -48,7 +48,7 @@ namespace interpreter{
 	std::string initTerminal(void){
 		std::string bufferInput;
 		std::cout << "[$]> ";
-		std::cin >> bufferInput;
+		getline(std::cin, bufferInput);
 		return bufferInput;
 	}
 
@@ -57,6 +57,8 @@ namespace interpreter{
 		// TODO: optimize it with separated functions executed by threads.
 		if (length1 == 0) return length2;
 		if (length2 == 0) return length1;
+		if ( word1 == word2 ) return 0;
+
 		unsigned cost;
 
 		if (word1[length1 - 1] == word2[length2 - 1]) cost = 0;
@@ -74,8 +76,14 @@ namespace interpreter{
 		std::string correction;
 		unsigned record;
 		std::vector<std::string> keywords = interpreter::getKeywords();
+		unsigned threshold = 5;
 
 		for(unsigned i = 0; i < interpreter::getKeywordsSize(); i++){
+			if( record > threshold ){
+				std::cout << "Command not found: " << command << std::endl;
+				return;
+			}
+
 			unsigned current = interpreter::levenshtein_dist(command, command.length(), keywords[i], keywords[i].length());
 			if( current < record ){
 				record = current;
@@ -94,6 +102,7 @@ namespace interpreter{
 		else if( command == interpreter::getKeyword(6) )  return database::update();
 		else if( command == interpreter::getKeyword(0) )  return -1;
 		else correction(command);
+		return 0;
 	}
 
 	void printHelp(void){

@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(database_system)
+project(socket-server-database)
 
-set(database_system_VERSION_MAJOR 0)
-set(database_system_VERSION_MINOR 1)
+set(socket-server-database_VERSION_MAJOR 0)
+set(socket-server-database_VERSION_MINOR 1)
 
-set(EXECUTABLE_NAME "database_system")
+set(EXECUTABLE_NAME "socket-server-database")
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
 add_library(interpreter
@@ -18,9 +18,9 @@ add_library(database
 	headers/database.hpp
 )
 
-add_executable(database_system
+add_executable(socket-server-database
 	../src/main.cpp
 )
 
-target_link_libraries(database_system PRIVATE interpreter)
-target_link_libraries(database_system PRIVATE database)
+target_link_libraries(socket-server-database PRIVATE interpreter)
+target_link_libraries(socket-server-database PRIVATE database)
