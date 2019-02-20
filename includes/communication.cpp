@@ -5,6 +5,7 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <string>
+#include <cstring>
 
 int main(int argc, char* argv[]){
 	// Creates a socket.
@@ -15,7 +16,7 @@ int main(int argc, char* argv[]){
 	}
 
 	// Creating a structure for the server connection.
-	int port = 66666; // Default port
+	int port = 5300; // Default port
 	std::string server_ip = "127.0.0.1";
 
 	sockaddr_in hint;
@@ -33,12 +34,13 @@ int main(int argc, char* argv[]){
 	do{
 		std::string userInput;
 		// buffer = interpreter::initTerminal();
-		std::cin.getline(userInput);
+		std::cout << "> ";
+		std::getline(std::cin, userInput);
 
 		// Send to server
 		unsigned BUFFER_SIZE_LIMIT = 4096;
 		char buffer[BUFFER_SIZE_LIMIT];
-		int sent = send(sock, userInput.c_str(), userInput.size() + 1, 0)
+		int sent = send(sock, userInput.c_str(), userInput.size() + 1, 0);
 		if( sent == -1 ){
 			std::cerr << "Could not send data to server." << std::endl;
 			continue;

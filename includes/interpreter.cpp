@@ -79,10 +79,10 @@ namespace interpreter{
 		unsigned threshold = 5;
 
 		for(unsigned i = 0; i < interpreter::getKeywordsSize(); i++){
-			if( record > threshold ){
-				std::cout << "Command not found: " << command << std::endl;
-				return;
-			}
+			// if( record > threshold ){
+				// std::cout << "Command not found: " << command << std::endl;
+				// return;
+			// }
 
 			unsigned current = interpreter::levenshtein_dist(command, command.length(), keywords[i], keywords[i].length());
 			if( current < record ){
