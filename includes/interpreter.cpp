@@ -70,6 +70,8 @@ namespace interpreter{
 		return std::min(std::min(deletion, insertion), substitution);
 	}
 
+	
+
 	// Uses the Levenshtein Distance to do a correction
 	void correction(std::string command){
 		// TODO: Split the command in spaces

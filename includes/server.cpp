@@ -1,15 +1,14 @@
+#include <iostream>
 #include <sys/types.h>
+#include <unistd.h>
 #include <sys/socket.h>
 #include <string>
-#include <unistd.h>
-#include <iostream>
 #include <cstring>
 #include <netdb.h>
 #include <arpa/inet.h>
 
-int main(int argc, char* argv[]){
-
-	// Create a socket
+int main(int argc, char *argv[]){
+	// Creates a socket
 	int listening = socket(AF_INET, SOCK_STREAM, 0);
 	if( listening == -1 ){
 		std::cerr << "Could not create a socket." << std::endl;
@@ -19,7 +18,7 @@ int main(int argc, char* argv[]){
 	// Bind the socket to a IP / Port
 	sockaddr_in hint;
 	hint.sin_family = AF_INET; // IPv4 structure
-	hint.sin_port = htons(5300);
+	hint.sin_port = htons(5400);
 	inet_pton(AF_INET, "0.0.0.0", &hint.sin_addr); // The Ip address means
 												   // That everybody can connect.
 
@@ -73,7 +72,7 @@ int main(int argc, char* argv[]){
 		}
 
 		if( bytesRecv == 0 ){
-			std::cout << "The client disconnected" << std::endl;
+			std::cerr << "The client disconnected" << std::endl;
 			break;
 		}
 
