@@ -16,11 +16,13 @@ int main(int argc, char *argv[]){
 	}
 
 	// Bind the socket to a IP / Port
+	unsigned port = 5400; // Default port.
 	sockaddr_in hint;
 	hint.sin_family = AF_INET; // IPv4 structure
-	hint.sin_port = htons(5400);
-	inet_pton(AF_INET, "0.0.0.0", &hint.sin_addr); // The Ip address means
-												   // That everybody can connect.
+	hint.sin_port = htons(port);
+	const char* server_ip = "0.0.0.0";  // The Ip address means
+										// That everybody can connect.
+	inet_pton(AF_INET, server_ip, &hint.sin_addr);
 
     if( (bind(listening, (sockaddr*)&hint, sizeof(hint)) == -1)){
 		std::cerr << "Could not bind to IP/Port" << std::endl;
@@ -54,9 +56,11 @@ int main(int argc, char *argv[]){
 
 	if( result ){
 		std::cout << host << " connected on " << service << std::endl;
+		std::cout << "The server is on: " << server_ip << ':' << port << std::endl;
 	}else{
 		inet_ntop(AF_INET, &client.sin_addr, host, NI_MAXHOST);
 		std::cout << host << " connected on " << ntohs(client.sin_port) << std::endl;
+		std::cout << "The server is on: " << server_ip << ':' << port << std::endl;
 	}
 
 	char buffer[4096];

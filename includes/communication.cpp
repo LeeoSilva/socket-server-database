@@ -19,7 +19,7 @@ namespace communication{
 		return hint;
 	}
 
-	unsigned openSocket(unsigned port, std::string server_ip){
+	unsigned openSocket(){
 		// Creates a socket.
 		int sock = socket(AF_INET, SOCK_STREAM, 0);
 		if( sock == -1 ){
