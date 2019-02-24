@@ -1,11 +1,12 @@
 #include <iostream>
 #include <string>
-#include <iterator>
 
 namespace arguments {
 	int checkPort(std::string argument){
-		std::cout << "Port function called" << std::endl;
-		return 0;
+		std::size_t equal_pos = argument.find('=');
+		if( equal_pos == -1 ) return -1;
+		unsigned port = stoi(argument.substr(equal_pos + 1));
+		return port;
 	}
 
 	int checkHelp(std::string argument){
@@ -20,8 +21,9 @@ namespace arguments {
 		std::string argument;
 		for( unsigned i = 1; i < argc; i++ ){
 			argument = std::string(argv[i]);
+			std::cout << checkPort(argument) << std::endl;
 			checkHelp(argument); // TODO
-			checkPort(argument);
+			// checkPort(argument);
 		}
 	}
 
