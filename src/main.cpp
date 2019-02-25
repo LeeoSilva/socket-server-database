@@ -1,13 +1,13 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include <algorithm>
 #include "../headers/interpreter.hpp"
+#include "../headers/arguments.hpp"
 
 int main(int argc, char* argv[]){
-	if( interpreter::checkArguments(argc, argv) == 1) return 0;
+	const int EXIT_CODE = -1; // Init 0 the program.
+	if( arguments::checkArguments(argc, argv) == EXIT_CODE) return 0;
 
-	const int EXIT_CODE = -1;
 	int fallback = 0;
 	while( fallback != EXIT_CODE ){
 		std::string command = interpreter::initTerminal();

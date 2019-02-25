@@ -3,8 +3,12 @@
 
 namespace arguments {
 
-	int check_getHelp(std::string argument){
-		if (argument.compare("--help") != 0) return -1;
+	// typedef struct seila{
+	// 	unsigned port;
+	// };
+
+	int check_getHelp(const std::string& argument){
+		if (argument.compare("--help") != 0) return -1; // EXIT_CODE.
 		std::cout << "2019 - Leonardo Silva <leeosilva0909@gmail.com>" << std::endl;
 		std::cout << "Usage: socket_server_datase [--options]" << std::endl << std::endl;
 		std::cout << "OPTIONS: " << std::endl;
@@ -13,7 +17,7 @@ namespace arguments {
 		return 0;
 	}
 
-	int check_getPort(std::string argument){
+	int check_getPort(const std::string& argument){
 		std::size_t equal_pos = argument.find('=');
 		if( equal_pos == -1 ) return -1;
 		unsigned port = stoi(argument.substr(equal_pos + 1));
@@ -21,21 +25,16 @@ namespace arguments {
 	}
 
 
-	void checkArguments(int argc, char *argv[]){
+	int checkArguments(int argc, char *argv[]){
 		// Do individual argument check in a outside function loop.
 		std::string argument;
 		for( unsigned i = 1; i < argc; i++ ){
 			argument = std::string(argv[i]);
 			// Checks every argument and gets if argument especified
-			arguments::check_getHelp(argument);
+			if( arguments::check_getHelp(argument) == 0 ) return -1; // EXIT_CODE.
 			arguments::check_getPort(argument);
 		}
+		return 0;
 	}
 
-
-}
-
-int main(int argc, char *argv[]){
-	arguments::checkArguments(argc, argv);
-	return 0;
 }

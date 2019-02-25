@@ -53,43 +53,56 @@ namespace interpreter{
 	}
 
 	// Finds the modification distance betwheen 2 words
-	unsigned levenshtein_dist(std::string word1, unsigned length1, std::string word2, unsigned length2){
-		// TODO: optimize it with separated functions executed by threads.
-		if (length1 == 0) return length2;
-		if (length2 == 0) return length1;
-		if ( word1 == word2 ) return 0;
+	int deletion(const std::string& word1, const std::string& word2){
+		// Step 1.
+		unsigned length1 = word1.length();
+		unsigned length2 = word2.length();
+		if ( length1 == 0 ) 	  return length2;
+		if ( length2 == 0 ) 	  return length1;
+		if( length1 == length2 || length1 < length2 ) return 0; // No need to delete
 
-		unsigned cost;
-
-		if (word1[length1 - 1] == word2[length2 - 1]) cost = 0;
-		else cost = 1;
-
-		unsigned deletion =  levenshtein_dist(word1, length1 - 1, word2, length2) + 1;
-		unsigned insertion =  levenshtein_dist(word1, length1, word2, length2 - 1) + 1;
-		unsigned substitution = levenshtein_dist(word1, length1 - 1, word2, length1 - 1) + cost;
-		return std::min(std::min(deletion, insertion), substitution);
+		unsigned del_dist = length1 - length2;
+		return del_dist;
 	}
 
-	
+	int adition(const std::string& word1, const std::string& word2){
+		// Step 2.
+		// ((-deletion) + (-deletion) * -1) = adition_distance
+		int score_distance = deletion(word1, word2);
+		if( score_distance > 0 ) return 0; // No need to insert
+
+		unsigned length1 = word1.length();
+		unsigned length2 = word2.length();
+		score_distance += (length1 - length2) * -1;
+		return score_distance;
+	}
+
+	int levenshtein_dist(const std::string& word1, const std::string& word2){
+		// The last step (substitution)
+		unsigned score_distance = adition(word1, word2);
+		unsigned aux;
+		unsigned length = word2.length();
+
+		for( unsigned i = 0; i < length; i++ )
+			if( word1[i] != word2[i] ){
+				score_distance++;
+			}
+		std::cout << " score: " << score_distance << std::endl;
+
+		return score_distance;
+	}
 
 	// Uses the Levenshtein Distance to do a correction
-	void correction(std::string command){
-		// TODO: Split the command in spaces
+	void correction(const std::string& command){
+		int record;
+		int result;
 		std::string correction;
-		unsigned record;
-		std::vector<std::string> keywords = interpreter::getKeywords();
-		unsigned threshold = 5;
-
-		for(unsigned i = 0; i < interpreter::getKeywordsSize(); i++){
-			// if( record > threshold ){
-				// std::cout << "Command not found: " << command << std::endl;
-				// return;
-			// }
-
-			unsigned current = interpreter::levenshtein_dist(command, command.length(), keywords[i], keywords[i].length());
-			if( current < record ){
-				record = current;
-				correction = keywords[i];
+		for(unsigned i = 0; i < 6; i++){
+			std::cout << interpreter::getKeyword(i);
+			result = interpreter::levenshtein_dist(command, interpreter::getKeyword(i));
+			if( result < record ){
+				record = result;
+				correction = interpreter::getKeyword(i);
 			}
 		}
 		std::cout << "Did you mean '" << correction << "' ?" << std::endl;
