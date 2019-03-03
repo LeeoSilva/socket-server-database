@@ -61,15 +61,13 @@ namespace interpreter{
 		if ( length2 == 0 ) 	  return length1;
 		if( length1 == length2 || length1 < length2 ) return 0; // No need to delete
 
-		unsigned del_dist = length1 - length2;
-		return del_dist;
+		return length1 - length2;
 	}
 
 	int adition(const std::string& word1, const std::string& word2){
 		// Step 2.
 		// ((-deletion) + (-deletion) * -1) = adition_distance
 		int score_distance = deletion(word1, word2);
-		if( score_distance > 0 ) return 0; // No need to insert
 
 		unsigned length1 = word1.length();
 		unsigned length2 = word2.length();
@@ -94,16 +92,21 @@ namespace interpreter{
 
 	// Uses the Levenshtein Distance to do a correction
 	void correction(const std::string& command){
-		int record;
+		int record = 15;
 		int result;
+		unsigned MAX_THRESHOLD = 15;
 		std::string correction;
-		for(unsigned i = 0; i < 6; i++){
-			std::cout << interpreter::getKeyword(i);
+		for(unsigned i = 0; i < interpreter::getKeywordsSize(); i++){
+			// std::cout << interpreter::getKeyword(i);
 			result = interpreter::levenshtein_dist(command, interpreter::getKeyword(i));
 			if( result < record ){
 				record = result;
 				correction = interpreter::getKeyword(i);
 			}
+		}
+		if( result > MAX_THRESHOLD ){
+			std::cout << "Command not found: " << command << std::endl;
+			return;
 		}
 		std::cout << "Did you mean '" << correction << "' ?" << std::endl;
 	}
@@ -116,7 +119,7 @@ namespace interpreter{
 		else if( command == interpreter::getKeyword(5) )  return database::truncate();
 		else if( command == interpreter::getKeyword(6) )  return database::update();
 		else if( command == interpreter::getKeyword(0) )  return -1;
-		else correction(command);
+		else interpreter::correction(command);
 		return 0;
 	}
 
