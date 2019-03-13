@@ -97,7 +97,6 @@ namespace interpreter{
 		unsigned MAX_THRESHOLD = 15;
 		std::string correction;
 		for(unsigned i = 0; i < interpreter::getKeywordsSize(); i++){
-			// std::cout << interpreter::getKeyword(i);
 			result = interpreter::levenshtein_dist(command, interpreter::getKeyword(i));
 			if( result < record ){
 				record = result;
@@ -111,7 +110,7 @@ namespace interpreter{
 		std::cout << "Did you mean '" << correction << "' ?" << std::endl;
 	}
 
-	int execute(std::string command){
+	int execute(const std::string& command){
 		if     ( command == interpreter::getKeyword(1) )  return database::edit();
 		else if( command == interpreter::getKeyword(2) )  return database::exclude();
 		else if( command == interpreter::getKeyword(3) )  return database::init();
