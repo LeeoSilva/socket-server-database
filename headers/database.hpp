@@ -1,9 +1,13 @@
 #pragma once
-#include "../includes/database.cpp"
+#include <iostream>
+#include <string>
+#include <vector>
 
-int database::exclude();
-int database::edit();
-int database::init();
-int database::select();
-int database::truncate();
-int database::update();
+namespace database{
+	int exclude(const std::string& command);
+	int edit(const std::string& command);
+	int init(const std::string& command);
+	int select(const std::string& command);
+	int truncate(const std::string& command);
+	int update(const std::string& command);
+}

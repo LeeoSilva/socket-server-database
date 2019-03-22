@@ -1,14 +1,24 @@
 #pragma once
-#include "../includes/interpreter.cpp"
+#include <iostream>
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <string>
+#include <cstring>
+#include <vector>
 
-std::vector<std::string> interpreter::getKeywords(void);
-std::vector<std::string> interpreter::getKeywordsDesc(void);
-std::string interpreter::initTerminal(void);
-std::string interpreter::getKeyword(unsigned id);
-std::string interpreter::getKeywordDesc(unsigned id);
-unsigned interpreter::getKeywordsSize(void);
-int  interpreter::execute(const std::string& command);
-int  interpreter::adition(const std::string& word1, const std::string& word2);
-int  interpreter::levenshtein_dist(const std::string& word1, const std::string& word2);
-void interpreter::correction(const std::string& command);
-void interpreter::printHelp(void);
+namespace interpreter{
+	std::vector<std::string> getKeywords(void);
+	std::vector<std::string> getKeywordsDesc(void);
+	std::string initTerminal(void);
+	std::string getKeyword(unsigned id);
+	std::string getKeywordDesc(unsigned id);
+	unsigned getKeywordsSize(void);
+	int  execute(const std::string& command);
+	int  adition(const std::string& word1, const std::string& word2);
+	int  levenshtein_dist(const std::string& word1, const std::string& word2);
+	void correction(const std::string& command);
+	void printHelp(void);
+}

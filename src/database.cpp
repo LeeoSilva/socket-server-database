@@ -1,6 +1,4 @@
-#include <iostream>
-#include <string>
-#include <vector>
+#include "../headers/database.hpp"
 
 namespace database{
 	int exclude(const std::string& command){
@@ -19,7 +17,7 @@ namespace database{
 		std::cout << "Select function" << std::endl;
 		return 1;
 	}
-	int truncate(const std::string command){
+	int truncate(const std::string& command){
 		std::cout << "Truncate function" << std::endl;
 		return 1;
 	}

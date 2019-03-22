@@ -1,6 +1,10 @@
 #pragma once
-#include "../includes/arguments.cpp"
+#include <iostream>
+#include <string>
 
-int arguments::checkArguments(int argc, char *argv[]);
-int  arguments::check_getHelp(const std::string& argument);
-int  arguments::check_getPort(const std::string& argument);
+namespace arguments{
+	int check_getPort(const std::string& argument);
+	int checkArguments(int argc, char *argv[]);
+	int check_getHelp(const std::string& argument);
+	std::string check_getServer(const std::string& argument);
+}

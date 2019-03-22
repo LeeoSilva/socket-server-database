@@ -1,12 +1,4 @@
-#include <iostream>
-#include <sys/types.h>
-#include <unistd.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <arpa/inet.h>
-#include <string>
-#include <cstring>
-#include "../includes/interpreter.cpp"
+#include "../headers/interpreter.hpp"
 
 namespace communication{
 

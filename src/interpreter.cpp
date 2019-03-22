@@ -1,7 +1,4 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include "../includes/database.cpp"
+#include "../headers/database.hpp"
 
 namespace interpreter{
 
@@ -41,7 +38,7 @@ namespace interpreter{
 
 
  	unsigned getKeywordsSize(void){
-		std::vector<std::string> keywords =  interpreter::getKeywords();
+		std::vector<std::string> keywords = interpreter::getKeywords();
 		return keywords.size();
 	}
 
@@ -85,7 +82,6 @@ namespace interpreter{
 			if( word1[i] != word2[i] ){
 				score_distance++;
 			}
-		std::cout << " score: " << score_distance << std::endl;
 
 		return score_distance;
 	}
@@ -107,21 +103,20 @@ namespace interpreter{
 			std::cout << "Command not found: " << command << std::endl;
 			return;
 		}
-		std::cout << "Did you mean '" << correction << "' ?" << std::endl;
+		else std::cout << "Did you mean '" << correction << "' ?" << std::endl;
 	}
 
 	int execute(const std::string& command){
-		if     ( command == interpreter::getKeyword(1) )  return database::edit();
-		else if( command == interpreter::getKeyword(2) )  return database::exclude();
-		else if( command == interpreter::getKeyword(3) )  return database::init();
-		else if( command == interpreter::getKeyword(4) )  return database::select();
-		else if( command == interpreter::getKeyword(5) )  return database::truncate();
-		else if( command == interpreter::getKeyword(6) )  return database::update();
+		if     ( command == interpreter::getKeyword(1) )  return database::edit(command);
+		else if( command == interpreter::getKeyword(2) )  return database::exclude(command);
+		else if( command == interpreter::getKeyword(3) )  return database::init(command);
+		else if( command == interpreter::getKeyword(4) )  return database::select(command);
+		else if( command == interpreter::getKeyword(5) )  return database::truncate(command);
+		else if( command == interpreter::getKeyword(6) )  return database::update(command);
 		else if( command == interpreter::getKeyword(0) )  return -1;
 		else interpreter::correction(command);
 		return 0;
 	}
-
 	void printHelp(void){
 		std::vector<std::string> keywords = interpreter::getKeywords();
 		std::vector<std::string> keywords_desc = interpreter::getKeywordsDesc();
