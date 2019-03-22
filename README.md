@@ -11,7 +11,7 @@ Fist an **interpreter** is called and is responsible for the input of the user
 * First get the source code:
 `git clone https://github.com/LeeoSilva/socket-server-database`
 
-* Run configure.sh
+* Run configure.sh:
 `sh socket-server-database/configure.sh`
 
 * Enter in the `build` tree:
