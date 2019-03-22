@@ -28,6 +28,7 @@ Fist an **interpreter** is called and is responsible for the input of the user
 - [ ] Optimize the Levenshtein Distance algorithm;
 - [x] Create a client-side socket;
 - [x] Create a server-side socket;
+- [ ] Solve EOF input infinite loop;
 - [ ] Send data from client-side to server-side;
 - [ ] Parse data received from the interpreter;
 - [ ] Implement Edit database basic function;

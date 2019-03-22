@@ -33,9 +33,9 @@ add_executable(socket-server-database
 	../src/main.cpp
 )
 
-# add_executable(server
-# 	../src/server.cpp
-# )
+add_executable(server
+	../src/server.cpp
+)
 
 target_link_libraries(socket-server-database PRIVATE interpreter)
 target_link_libraries(socket-server-database PRIVATE database)

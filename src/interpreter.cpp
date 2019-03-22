@@ -4,13 +4,14 @@ namespace interpreter{
 
 	std::vector<std::string> getKeywords(void){
 		return {
-			"QUIT",
+			"EXIT",
 			"EDIT",
 			"EXCLUDE",
 			"INIT",
 			"SELECT",
 			"TRUNCATE",
-			"UPDATE"
+			"UPDATE",
+			"HELP"
 		};
 	}
 
@@ -21,13 +22,14 @@ namespace interpreter{
 
 	std::vector<std::string> getKeywordsDesc(void){
 		return {
-			"Terminates the program",
-			"Deletes a given row from the database",
-			"Edits a given row from the database",
-			"Inits the database structure",
-			"Gets content from a given row from the database",
-			"Deletes all the content from the database structure",
-			"Updates a given database content"
+			"\t\tTerminates the program",
+			"\t\tDeletes a given row from the database",
+			"\tEdits a given row from the database",
+			"\t\tInits the database structure",
+			"\tGets content from a given row from the database",
+			"\tDeletes all the content from the database structure",
+			"\tUpdates a given database content",
+			"\t\tShows this message"
 		};
 	}
 
@@ -90,20 +92,32 @@ namespace interpreter{
 	void correction(const std::string& command){
 		int record = 15;
 		int result;
-		unsigned MAX_THRESHOLD = 15;
+		unsigned MAX_THRESHOLD = 4;
 		std::string correction;
 		for(unsigned i = 0; i < interpreter::getKeywordsSize(); i++){
 			result = interpreter::levenshtein_dist(command, interpreter::getKeyword(i));
+			std::cout << result << std::endl;
+			if( result > MAX_THRESHOLD ){
+				std::cout << "Command not found: " << command << std::endl;
+				return;
+			}
+
 			if( result < record ){
 				record = result;
 				correction = interpreter::getKeyword(i);
 			}
 		}
-		if( result > MAX_THRESHOLD ){
-			std::cout << "Command not found: " << command << std::endl;
-			return;
-		}
-		else std::cout << "Did you mean '" << correction << "' ?" << std::endl;
+
+		std::cout << "Did you mean '" << correction << "' ?" << std::endl;
+	}
+
+	int printHelp(void){
+		std::vector<std::string> keywords = interpreter::getKeywords();
+		std::vector<std::string> keywords_desc = interpreter::getKeywordsDesc();
+		for( unsigned i = 0; i < interpreter::getKeywordsSize(); i++ )
+			std::cout << interpreter::getKeyword(i) << " - " << interpreter::getKeywordDesc(i) << std::endl;
+		std::cout << std::endl;
+		return 1;
 	}
 
 	int execute(const std::string& command){
@@ -113,15 +127,10 @@ namespace interpreter{
 		else if( command == interpreter::getKeyword(4) )  return database::select(command);
 		else if( command == interpreter::getKeyword(5) )  return database::truncate(command);
 		else if( command == interpreter::getKeyword(6) )  return database::update(command);
+		else if( command == interpreter::getKeyword(7) )  return interpreter::printHelp();
 		else if( command == interpreter::getKeyword(0) )  return -1;
-		else interpreter::correction(command);
+		else std::cout << "Command not found: " << command << std::endl;
 		return 0;
-	}
-	void printHelp(void){
-		std::vector<std::string> keywords = interpreter::getKeywords();
-		std::vector<std::string> keywords_desc = interpreter::getKeywordsDesc();
-		for( unsigned i = 0; i < interpreter::getKeywordsSize(); i++ )
-			std::cout << interpreter::getKeyword(i) << " - " << interpreter::getKeywordDesc(i) << std::endl;
 	}
 
 	int checkArguments(int argc, char* argv[]){
