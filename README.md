@@ -7,6 +7,19 @@ Fist an **interpreter** is called and is responsible for the input of the user
 	the parsing of the informations and making sure that the final **database**
 	understands and execute it flawlessly.
 
+## Installation:
+* First get the source code:
+`git clone https://github.com/LeeoSilva/socket-server-database`
+
+* Run configure.sh
+`sh socket-server-database/configure.sh`
+
+* Enter in the `build` tree:
+`cd socket-server-database/build`
+
+* Compile from source:
+`make`
+
 ## TODOLIST:
 - [x] Write interpreter code;
 - [x] Implement command correction;
