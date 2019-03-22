@@ -9,7 +9,7 @@ Fist an **interpreter** is called and is responsible for the input of the user
 
 ## Installation:
 * First get the source code:
-`git clone https://github.com/LeeoSilva/socket-server-database`
+`git clone https://github.com/LeeoSilva/socket-server-database.git`
 
 * Run configure.sh:
 `sh socket-server-database/configure.sh`
