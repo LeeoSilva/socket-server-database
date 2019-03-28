@@ -1,17 +1,16 @@
+#include "../headers/interpreter.hpp"
 #include "../headers/database.hpp"
 
 namespace interpreter{
-
 	std::vector<std::string> getKeywords(void){
 		return {
-			"EXIT",
-			"EDIT",
-			"EXCLUDE",
+			"HELP",
 			"INIT",
+			"EXIT",
+			"EXCLUDE",
 			"SELECT",
 			"TRUNCATE",
-			"UPDATE",
-			"HELP"
+			"UPDATE"
 		};
 	}
 
@@ -39,7 +38,7 @@ namespace interpreter{
 	}
 
 
- 	unsigned getKeywordsSize(void){
+ 	std::size_t getKeywordsSize(void){
 		std::vector<std::string> keywords = interpreter::getKeywords();
 		return keywords.size();
 	}
@@ -88,8 +87,8 @@ namespace interpreter{
 		return score_distance;
 	}
 
-	// Uses the Levenshtein Distance to do a correction
 	void correction(const std::string& command){
+		// Uses the Levenshtein Distance to do a correction
 		int record = 15;
 		int result;
 		unsigned MAX_THRESHOLD = 4;
@@ -111,7 +110,12 @@ namespace interpreter{
 		std::cout << "Did you mean '" << correction << "' ?" << std::endl;
 	}
 
-	int printHelp(void){
+	unsigned printHelp(void){
+		/*
+		Display a message for the user with the descripton of the command
+		from the dictionary.
+		*/
+
 		std::vector<std::string> keywords = interpreter::getKeywords();
 		std::vector<std::string> keywords_desc = interpreter::getKeywordsDesc();
 		for( unsigned i = 0; i < interpreter::getKeywordsSize(); i++ )
@@ -120,17 +124,35 @@ namespace interpreter{
 		return 1;
 	}
 
+	std::string getFirstOccurence(const std::string& command){
+		/*
+		Gets the fist word of the command passed by the server for later check.
+			@command const std::string&
+		*/
+		std::size_t space_pos = command.find(" ");
+		if( space_pos == std::string::npos ){
+			if( command == "INIT" ) std::cout << "INIT function needs more parameters" << std::endl;
+			else if( command == "EXCLUDE" ) std::cout << "EXCLUDE function needs more parameters" << std::endl;
+			else if( command == "SELECT" ) std::cout << "SELECT function needs more parameters" << std::endl;
+			else if( command == "TRUNCATE" ) std::cout << "TRUNCATE function needs more parameters" << std::endl;
+			else if( command == "UPDATE" ) std::cout << "UPDATE function needs more parameters" << std::endl;
+		}
+
+		// TODO
+
+	}
+
 	int execute(const std::string& command){
-		if     ( command == interpreter::getKeyword(1) )  return database::edit(command);
-		else if( command == interpreter::getKeyword(2) )  return database::exclude(command);
-		else if( command == interpreter::getKeyword(3) )  return database::init(command);
-		else if( command == interpreter::getKeyword(4) )  return database::select(command);
-		else if( command == interpreter::getKeyword(5) )  return database::truncate(command);
-		else if( command == interpreter::getKeyword(6) )  return database::update(command);
-		else if( command == interpreter::getKeyword(7) )  return interpreter::printHelp();
+
+		// if     ( interpreter::getFirstOccurence(command) == interpreter::getKeyword() )  return prepare::edit(command);
+		// else if( interpreter::getFirstOccurence(command) == interpreter::getKeyword() )  return prepare::exclude(command);
+		if(         interpreter::getFirstOccurence(command) == interpreter::getKeyword(1) )  return prepare::init(command);
+		// else if( interpreter::getFirstOccurence(command) == interpreter::getKeyword() )  return prepare::select(command);
+		// else if( interpreter::getFirstOccurence(command) == interpreter::getKeyword() )  return prepare::truncate(command);
+		// else if( interpreter::getFirstOccurence(command) == interpreter::getKeyword() )  return prepare::update(command);
+		// else if( interpreter::getFirstOccurence(command) == interpreter::getKeyword() )  return interpreter::printHelp();
 		else if( command == interpreter::getKeyword(0) )  return -1;
 		else std::cout << "Command not found: " << command << std::endl;
-		return 0;
 	}
 
 	int checkArguments(int argc, char* argv[]){

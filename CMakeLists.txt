@@ -24,6 +24,11 @@ add_library(communication
 	headers/communication.hpp
 )
 
+add_library(prepare
+	src/prepare.cpp
+	headers/prepare.hpp
+)
+
 add_library(arguments
 	src/arguments.cpp
 	headers/arguments.hpp
@@ -39,4 +44,5 @@ add_executable(server
 
 target_link_libraries(socket-server-database PRIVATE interpreter)
 target_link_libraries(socket-server-database PRIVATE database)
+target_link_libraries(socket-server-database PRIVATE prepare)
 target_link_libraries(socket-server-database PRIVATE arguments)

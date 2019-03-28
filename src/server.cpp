@@ -20,8 +20,9 @@ int main(int argc, char *argv[]){
 	sockaddr_in hint;
 	hint.sin_family = AF_INET; // IPv4 structure
 	hint.sin_port = htons(port);
-	const char* server_ip = "0.0.0.0";  // The Ip address means
-										// That everybody can connect.
+	const char* server_ip = "0.0.0.0"; // Global IP address.
+									   // Everybody can connect.
+									    
 	inet_pton(AF_INET, server_ip, &hint.sin_addr);
 
     if( (bind(listening, (sockaddr*)&hint, sizeof(hint)) == -1)){
