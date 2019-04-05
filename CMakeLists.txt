@@ -9,6 +9,11 @@ set(DATABASE_EXECUTABLE_NAME "socket-server-database")
 set(SERVER_EXECUTABLE_NAME "server-side-database")
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
+add_library(helper
+	src/helper.cpp
+	headers/helper.hpp
+)
+
 add_library(interpreter
 	src/interpreter.cpp
 	headers/interpreter.hpp
@@ -43,6 +48,7 @@ add_executable(server
 )
 
 target_link_libraries(socket-server-database PRIVATE interpreter)
+target_link_libraries(socket-server-database PRIVATE helper)
 target_link_libraries(socket-server-database PRIVATE database)
 target_link_libraries(socket-server-database PRIVATE prepare)
 target_link_libraries(socket-server-database PRIVATE arguments)

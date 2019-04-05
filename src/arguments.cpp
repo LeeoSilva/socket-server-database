@@ -21,7 +21,7 @@ namespace arguments {
 		if( equal_pos == -1 ) return -1;
 		unsigned port = std::stoi(argument.substr(equal_pos + 1));
 		return port;
-	}
+	};
 
 	std::string check_getServer(const std::string& argument){
 		// Check and get the IPv4 format ip from the cli argument.

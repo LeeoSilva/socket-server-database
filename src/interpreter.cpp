@@ -1,15 +1,14 @@
 #include "../headers/interpreter.hpp"
-#include "../headers/database.hpp"
 
 namespace interpreter{
 	std::vector<std::string> getKeywords(void){
 		return {
+			"EXIT",
+			"SELECT",
 			"HELP",
 			"INIT",
-			"EXIT",
-			"EXCLUDE",
-			"SELECT",
 			"TRUNCATE",
+			"EXCLUDE",
 			"UPDATE"
 		};
 	}
@@ -55,8 +54,8 @@ namespace interpreter{
 		// Step 1.
 		unsigned length1 = word1.length();
 		unsigned length2 = word2.length();
-		if ( length1 == 0 ) 	  return length2;
-		if ( length2 == 0 ) 	  return length1;
+		if ( length1 == 0 ) return length2;
+		if ( length2 == 0 ) return length1;
 		if( length1 == length2 || length1 < length2 ) return 0; // No need to delete
 
 		return length1 - length2;
@@ -131,22 +130,23 @@ namespace interpreter{
 		*/
 		std::size_t space_pos = command.find(" ");
 		if( space_pos == std::string::npos ){
-			if( command == "INIT" ) std::cout << "INIT function needs more parameters" << std::endl;
-			else if( command == "EXCLUDE" ) std::cout << "EXCLUDE function needs more parameters" << std::endl;
-			else if( command == "SELECT" ) std::cout << "SELECT function needs more parameters" << std::endl;
-			else if( command == "TRUNCATE" ) std::cout << "TRUNCATE function needs more parameters" << std::endl;
-			else if( command == "UPDATE" ) std::cout << "UPDATE function needs more parameters" << std::endl;
+		std::cout << "npos" << std::endl;
+		return command;
+	}
+		std::cout << "Command len: " << command.length() << std::endl;
+		std::cout << "Space pos: " << space_pos << std::endl;
+		if( space_pos == std::string::npos || ( space_pos == command.length()-1 ) ){
+			std::string modCommand = command;
+			modCommand.erase(space_pos, space_pos);
+			return modCommand;
 		}
-
-		// TODO
-
 	}
 
 	int execute(const std::string& command){
 
+		if(         interpreter::getFirstOccurence(command) == interpreter::getKeyword(1) ) return prepare::init(command);
 		// if     ( interpreter::getFirstOccurence(command) == interpreter::getKeyword() )  return prepare::edit(command);
 		// else if( interpreter::getFirstOccurence(command) == interpreter::getKeyword() )  return prepare::exclude(command);
-		if(         interpreter::getFirstOccurence(command) == interpreter::getKeyword(1) )  return prepare::init(command);
 		// else if( interpreter::getFirstOccurence(command) == interpreter::getKeyword() )  return prepare::select(command);
 		// else if( interpreter::getFirstOccurence(command) == interpreter::getKeyword() )  return prepare::truncate(command);
 		// else if( interpreter::getFirstOccurence(command) == interpreter::getKeyword() )  return prepare::update(command);
